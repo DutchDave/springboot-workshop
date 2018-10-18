@@ -2,6 +2,8 @@ package nl.rechtspraak.springboot.filmapi.web;
 
 import nl.rechtspraak.springboot.filmapi.model.Film;
 import nl.rechtspraak.springboot.filmapi.model.FilmlijstItem;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
@@ -63,7 +65,7 @@ public class ApiController {
     }
 
     @PutMapping("{id}")
-    public Film setFilm(@PathVariable("id") String id, @RequestBody Film updateFilm) {
+    public ResponseEntity<Film> setFilm(@PathVariable("id") String id, @RequestBody Film updateFilm) {
         final Optional<Film> optionalFilm = films.stream().filter((film) -> film.getId().equals(id)).findFirst();
         if(optionalFilm.isPresent()) { // Updaten
             Film currentFilm = optionalFilm.get();
@@ -72,11 +74,11 @@ public class ApiController {
             currentFilm.setReleaseJaar(updateFilm.getReleaseJaar());
             currentFilm.setTitel(updateFilm.getTitel());
             currentFilm.addActeurs(updateFilm.getActeurs().toArray(new String[0]));
-            return currentFilm;
+            return new ResponseEntity<>(currentFilm, HttpStatus.ACCEPTED);
         } else { // Aanmaken
             updateFilm.setId(id);
             films.add(updateFilm);
-            return updateFilm;
+            return new ResponseEntity<>(updateFilm, HttpStatus.CREATED);
         }
 
 
