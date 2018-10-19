@@ -80,7 +80,20 @@ public class ApiController {
             films.add(updateFilm);
             return new ResponseEntity<>(updateFilm, HttpStatus.CREATED);
         }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteFilm(@PathVariable("id") String id){
+
+        final Optional<Film> zoekresultaat = films.stream().filter((film) -> film.getId().equals(id)).findFirst();
+        if(zoekresultaat.isPresent()) {
+            films.removeIf(film -> film.getId().equals(id));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("DELETE Success!");
+        } else {
+            throw new FilmNietGevondenException(id);
+        }
 
 
     }
+
 }

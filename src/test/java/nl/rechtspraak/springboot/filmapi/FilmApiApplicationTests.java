@@ -86,4 +86,20 @@ public class FilmApiApplicationTests {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.titel", Matchers.equalTo("The Ususal Suspects 2")));
 
 	}
+
+	@Test
+	public void deleteFilm() throws Exception {
+		ResultMatcher accepted = MockMvcResultMatchers.status()
+				.isAccepted();
+		MockHttpServletRequestBuilder builder =
+				MockMvcRequestBuilders.delete("/films/123");
+		this.mockMvc.perform(builder)
+				.andExpect(accepted);
+	}
+
+	@Test
+	public void deleteFilmBestaatNiet() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("/films/1234567890"))
+				.andExpect(MockMvcResultMatchers.status().isNotFound());
+	}
 }
