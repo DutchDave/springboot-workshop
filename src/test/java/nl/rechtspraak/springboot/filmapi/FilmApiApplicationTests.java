@@ -100,4 +100,33 @@ public class FilmApiApplicationTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/films/1234567890"))
 				.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
+
+	@Test
+	public void createFilm() throws Exception {
+		ResultMatcher accepted = MockMvcResultMatchers.status()
+				.isAccepted();
+
+		MockHttpServletRequestBuilder builder =
+				MockMvcRequestBuilders.post("/films/789")
+						.contentType("application/json")
+						.accept("application/json")
+						.content(getFilmInJSON());
+		this.mockMvc.perform(builder)
+				.andExpect(accepted);
+	}
+
+	@Test
+	public void createFilmBestaatAl() throws Exception {
+		ResultMatcher conflict = MockMvcResultMatchers.status()
+				.isConflict();
+
+		MockHttpServletRequestBuilder builder =
+				MockMvcRequestBuilders.post("/films/456")
+						.contentType("application/json")
+						.accept("application/json")
+						.content(getFilmInJSON());
+		this.mockMvc.perform(builder)
+				.andExpect(conflict);
+	}
+
 }

@@ -2,7 +2,6 @@ package nl.rechtspraak.springboot.filmapi.service;
 
 import nl.rechtspraak.springboot.filmapi.model.Film;
 import nl.rechtspraak.springboot.filmapi.model.FilmlijstItem;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -11,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class FilmService {
 
     private Set<Film> films = new HashSet<>();
@@ -30,5 +29,9 @@ public class FilmService {
 
     public void removeFilm(String id) {
         films.removeIf(film -> film.getId().equals(id));
+    }
+
+    public void createFilm(Film newFilm) {
+        films.add(newFilm);
     }
 }

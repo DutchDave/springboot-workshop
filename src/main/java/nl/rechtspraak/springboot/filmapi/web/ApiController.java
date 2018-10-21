@@ -18,7 +18,6 @@ import java.util.Optional;
 @RequestMapping("films")
 public class ApiController {
 
-
     private FilmService filmService;
 
     /**
@@ -57,9 +56,9 @@ public class ApiController {
 
     @GetMapping("{id}")
     public Film getFilm(@PathVariable("id") String id) {
-        final Optional<Film> zoekresultaat = filmService.getFilm(id);
-        if(zoekresultaat.isPresent()) {
-            return zoekresultaat.get();
+        final Optional<Film> zoekResultaat = filmService.getFilm(id);
+        if(zoekResultaat.isPresent()) {
+            return zoekResultaat.get();
         } else {
             throw new FilmNietGevondenException(id);
         }
@@ -83,12 +82,24 @@ public class ApiController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteFilm(@PathVariable("id") String id){
-        final Optional<Film> zoekresultaat = filmService.getFilm(id);
-        if(zoekresultaat.isPresent()) {
+        final Optional<Film> zoekResultaat = filmService.getFilm(id);
+        if(zoekResultaat.isPresent()) {
             filmService.removeFilm(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("DELETE Success!");
         } else {
             throw new FilmNietGevondenException(id);
+        }
+    }
+
+    @PostMapping("{id}")
+    public ResponseEntity<String> createFilm(@PathVariable("id") String id, @RequestBody Film newFilm){
+        final Optional<Film> zoekResultaat = filmService.getFilm(id);
+        if(zoekResultaat.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource already excists!");
+        } else {
+            newFilm.setId(id);
+            filmService.createFilm(newFilm);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Film created!");
         }
     }
 
