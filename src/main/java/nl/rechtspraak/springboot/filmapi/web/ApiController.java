@@ -2,16 +2,14 @@ package nl.rechtspraak.springboot.filmapi.web;
 
 import nl.rechtspraak.springboot.filmapi.model.Film;
 import nl.rechtspraak.springboot.filmapi.model.FilmlijstItem;
+import nl.rechtspraak.springboot.filmapi.service.FilmService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Apicontroller voor de Film-api.
@@ -19,12 +17,15 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("films")
 public class ApiController {
-    private Set<Film> films = new HashSet<>();
+
+
+    private FilmService filmService;
 
     /**
      * Constructor die films aanmaakt.
      */
-    public ApiController() {
+    public ApiController(FilmService filmService) {
+        this.filmService = filmService;
         maakFilms();
     }
 
@@ -45,18 +46,18 @@ public class ApiController {
         film2.addActeurs("Jake Gyllenhaal", "Jena Malone", "Mary McDonnell");
         film2.setId("456");
 
-        films.add(film1);
-        films.add(film2);
+        filmService.add(film1);
+        filmService.add(film2);
     }
 
     @GetMapping
     public Collection<FilmlijstItem> getFilms() {
-        return films.stream().map(FilmlijstItem::new).collect(Collectors.toSet());
+        return filmService.getFilms();
     }
 
     @GetMapping("{id}")
     public Film getFilm(@PathVariable("id") String id) {
-        final Optional<Film> zoekresultaat = films.stream().filter((film) -> film.getId().equals(id)).findFirst();
+        final Optional<Film> zoekresultaat = filmService.getFilm(id);
         if(zoekresultaat.isPresent()) {
             return zoekresultaat.get();
         } else {
@@ -66,8 +67,8 @@ public class ApiController {
 
     @PutMapping("{id}")
     public ResponseEntity<Film> setFilm(@PathVariable("id") String id, @RequestBody Film updateFilm) {
-        final Optional<Film> optionalFilm = films.stream().filter((film) -> film.getId().equals(id)).findFirst();
-        if(optionalFilm.isPresent()) { // Updaten
+        final Optional<Film> optionalFilm = filmService.getFilm(id);
+        if(optionalFilm.isPresent()) {
             Film currentFilm = optionalFilm.get();
             currentFilm.setDuur(updateFilm.getDuur());
             currentFilm.setRegisseur(updateFilm.getRegisseur());
@@ -75,25 +76,20 @@ public class ApiController {
             currentFilm.setTitel(updateFilm.getTitel());
             currentFilm.addActeurs(updateFilm.getActeurs().toArray(new String[0]));
             return new ResponseEntity<>(currentFilm, HttpStatus.ACCEPTED);
-        } else { // Aanmaken
-            updateFilm.setId(id);
-            films.add(updateFilm);
-            return new ResponseEntity<>(updateFilm, HttpStatus.CREATED);
+        } else {
+            throw new FilmNietGevondenException(id);
         }
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteFilm(@PathVariable("id") String id){
-
-        final Optional<Film> zoekresultaat = films.stream().filter((film) -> film.getId().equals(id)).findFirst();
+        final Optional<Film> zoekresultaat = filmService.getFilm(id);
         if(zoekresultaat.isPresent()) {
-            films.removeIf(film -> film.getId().equals(id));
+            filmService.removeFilm(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("DELETE Success!");
         } else {
             throw new FilmNietGevondenException(id);
         }
-
-
     }
 
 }

@@ -24,7 +24,7 @@ public class FilmApiApplicationTests {
 	public void getFilmList() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/films"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.length()", Matchers.is(3)));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.length()", Matchers.is(2)));
 	}
 
 	@Test
@@ -43,8 +43,8 @@ public class FilmApiApplicationTests {
 	@Test
 	public void updateFilmNieuw() throws Exception {
 
-		ResultMatcher created = MockMvcResultMatchers.status()
-				.isCreated();
+		ResultMatcher notFound = MockMvcResultMatchers.status()
+				.isNotFound();
 
 		MockHttpServletRequestBuilder builder =
 				MockMvcRequestBuilders.put("/films/789")
@@ -52,9 +52,7 @@ public class FilmApiApplicationTests {
 						.accept("application/json")
 						.content(getFilmInJSON());
 		this.mockMvc.perform(builder)
-				.andExpect(created)
-				.andExpect(MockMvcResultMatchers.jsonPath("$.titel", Matchers.equalTo("Once Upon a Time in the West")));
-
+				.andExpect(notFound);
 	}
 
 	private String getFilmInJSON(){
