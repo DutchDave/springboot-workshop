@@ -1,37 +1,41 @@
 package nl.rechtspraak.springboot.filmapi.service;
 
+import nl.rechtspraak.springboot.filmapi.doa.FilmRepository;
 import nl.rechtspraak.springboot.filmapi.model.Film;
 import nl.rechtspraak.springboot.filmapi.model.FilmlijstItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 public class FilmService {
 
-    private Set<Film> films = new HashSet<>();
+    @Autowired
+    private FilmRepository repository;
 
     public void add(Film film){
-        films.add(film);
+        repository.save(film);
     }
 
     public Collection<FilmlijstItem> getFilms() {
-        return films.stream().map(FilmlijstItem::new).collect(Collectors.toSet());
+        Stream<Film> filmStream = StreamSupport.stream(repository.findAll().spliterator(), false);
+        return filmStream.map(FilmlijstItem::new).collect(Collectors.toSet());
     }
 
     public Optional<Film> getFilm(String id) {
-        return films.stream().filter((film) -> film.getId().equals(id)).findFirst();
+        return repository.findById(id);
     }
 
     public void removeFilm(String id) {
-        films.removeIf(film -> film.getId().equals(id));
+        repository.deleteById(id);
     }
 
-    public void createFilm(Film newFilm) {
-        films.add(newFilm);
+    public void update(Film currentFilm) {
+        repository.save(currentFilm);
     }
 }

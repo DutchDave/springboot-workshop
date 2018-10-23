@@ -1,5 +1,7 @@
 package nl.rechtspraak.springboot.filmapi.model;
 
+import javax.persistence.*;
+
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,12 +11,20 @@ import java.util.Set;
 /**
  * De film klasse;
  */
+@Entity
 public class Film {
+
     private String titel;
     private int releaseJaar;
+
+    //@ElementCollection(targetClass=String.class)
+    @Convert(converter = StringSetConverter.class)
     private Set<String> acteurs = new HashSet<>();
+
     private Duration duur;
     private String regisseur;
+
+    @Id
     private String id;
 
     public String getId() {

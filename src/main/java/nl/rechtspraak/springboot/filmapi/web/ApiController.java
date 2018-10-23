@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -25,28 +24,6 @@ public class ApiController {
      */
     public ApiController(FilmService filmService) {
         this.filmService = filmService;
-        maakFilms();
-    }
-
-    private void maakFilms() {
-        final Film film1 = new Film();
-        film1.setTitel("The Ususal Suspects");
-        film1.setReleaseJaar(1995);
-        film1.setDuur(Duration.ofMinutes(106));
-        film1.setRegisseur("Bryan Singer");
-        film1.addActeurs("Kevin Spacey", "Gabriel Byrne", "Chazz Palminteri");
-        film1.setId("123");
-
-        final Film film2 = new Film();
-        film2.setTitel("Donnie Darko");
-        film2.setReleaseJaar(2001);
-        film2.setDuur(Duration.ofMinutes(113));
-        film2.setRegisseur("Richard Kelly");
-        film2.addActeurs("Jake Gyllenhaal", "Jena Malone", "Mary McDonnell");
-        film2.setId("456");
-
-        filmService.add(film1);
-        filmService.add(film2);
     }
 
     @GetMapping
@@ -74,6 +51,7 @@ public class ApiController {
             currentFilm.setReleaseJaar(updateFilm.getReleaseJaar());
             currentFilm.setTitel(updateFilm.getTitel());
             currentFilm.addActeurs(updateFilm.getActeurs().toArray(new String[0]));
+            filmService.update(currentFilm);
             return new ResponseEntity<>(currentFilm, HttpStatus.ACCEPTED);
         } else {
             throw new FilmNietGevondenException(id);
@@ -98,9 +76,8 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource already excists!");
         } else {
             newFilm.setId(id);
-            filmService.createFilm(newFilm);
+            filmService.add(newFilm);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Film created!");
         }
     }
-
 }
