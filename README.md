@@ -1,12 +1,14 @@
 # springboot-workshop
-MVE-1: Lijst van films<br>
-MVE-2: Lijst kunnen uitbreiden<br>
-MVE-3: Persisteren lijst van films<br>
-MVE-4: Business rules (rating filter)<br>
-MVE-5: Verwijderen van films<br>
-MVE-6: Verras Dave met een willekeurige fiml<br>
+MVE-1: Enkele film ophalen
+MVE-2: Lijst van films<br>
+MVE-3: Lijst kunnen uitbreiden<br>
+MVE-4: Persisteren lijst van films<br>
+MVE-5: Business rules (rating filter)<br>
+MVE-6: Verwijderen van films<br>
+MVE-7: Verras Dave met een willekeurige fiml<br>
 
 Films:
+```json
 [
    {
       "titel":"The Ususal Suspects",
@@ -45,3 +47,4 @@ Films:
       "id":"789"
    }
 ]
+```
