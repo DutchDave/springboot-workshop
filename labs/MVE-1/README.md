@@ -180,6 +180,15 @@ Maak een nieuwe klasse aan in package `[GROUP].[NAME].web` in ons geval: `nl.rec
 
 Annoteer de klasse (regel boven public class ApiController) met `@RestController` en met `@RequestMapping("films")`. 
 
+De class signature ziet er als volgt uit:
+
+```java
+@RestController
+@RequestMapping("films")
+public class ApiController {
+    ...
+```
+
 De `@RestController` zorgt ervoor dat deze klasse door spring als controller wordt behandeld, dit houdt in dat het een bean is geworden en dat wij eventueel andere bean kunnen gaan injecteren(komen we later op terug).
 
 De `@RequestMapping("films")` zorgt ervoor dat als er een HTTP-verzoek op [hostnaam:port/films] methoden uit deze klasse worden aangeroepen.
