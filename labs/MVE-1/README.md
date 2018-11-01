@@ -263,8 +263,10 @@ public Film getFilm(@PathVariable("id") String id) {
 
 Zorg ervoor dat de implementatie van de methode de juiste film terug geeft o.b.v. het opgegeven id.
 
-
-#### Film bestaat niet
-
-
 Nu het moment van de waarheid: het opstarten van de applicatie!!!!!
+
+![Start application](run.png)
+
+Controleer of de spring-boot applicatie de juist film terug geeft door de applicatie aan te roepen m.b.v. postman.
+
+![Postman request](postman.png)
