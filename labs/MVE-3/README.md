@@ -29,7 +29,11 @@ Body:
 
 Antwoord:
 
-201: Created
+`201 Created`
+
+Body:
+
+012
 
 ---
 
@@ -79,7 +83,7 @@ Maak in de `ApiController` een nieuwe methode aan die een film toevoegt door de 
 
 Het returnType van de methode is een `ResponseEntity`. Op het moment dat alles goed is gegaan met het toevoegen van de `Film`, geven de een statuscode `201(CREATED)` terug met in de body een hint over waar de resource is aangemaakt, in ons geval het `Id` van de `Film`(het is dus handig als de methode in de service dit als antwoordt geeft).
 
-Om een `201` als antwoord te geven kunenn we de volgende methoden gebruiken:
+Om een `201` als antwoord te geven kunnen we de volgende methoden gebruiken:
 
 ```java
 ResponseEntity.status(HttpStatus.CREATED).body(id);
