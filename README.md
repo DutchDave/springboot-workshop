@@ -14,7 +14,7 @@ Voor het deelneem aan deze cursus moet de volgende software zijn geinstalleerd e
 * [MVE-2: Lijst van films](labs/MVE-2/README.md)
 * [MVE-3: Lijst kunnen uitbreiden](labs/MVE-3/README.md)
 * [MVE-4: Persisteren films](labs/MVE-4/README.md)
-* MVE-5: Verwijderen van films
+* [MVE-5: Verwijderen van films](labs/MVE-5/README.md)
 * MVE-6: Verras Dave met een willekeurige film
 
 Films:

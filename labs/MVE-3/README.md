@@ -44,7 +44,7 @@ Body:
 
 ### Lijst van films en logica naar een service verhuizen
 
-Omdat onze code nu aan het groeien is, is het een goed idee om alle logic m.b.t. de lijst van films in een apart component te plaatsen(t.b.v. onderhoudbaarheid). 
+Omdat onze code nu aan het groeien is, is het een goed idee om alle logic m.b.t. de lijst van films in een apart component te plaatsen (t.b.v. onderhoudbaarheid). 
 
 Maak een nieuwe klasse aan in `nl.rechtspraak.springboot.filmapi.service` genaamd `FilmService`. Annoteer deze klasse met `@Service`.
 
@@ -57,7 +57,7 @@ public class FilmService {
 }
 ```
 
-Verplaats alle logica m.b.t. `Film`s naar deze nieuwe klasse en scherm de logica zo veel mogelijk al(bv het ophalen van een film) zodat vanuit de repositry enkel de methode hoeft te worden aangeroepen.
+Verplaats alle logica m.b.t. `Film`s naar deze nieuwe klasse en scherm de logica zo veel mogelijk af (bv het ophalen van een film) zodat vanuit de repositry enkel de methode hoeft te worden aangeroepen.
 
 Voeg aan de `ApiController` een instantievariable toe met van het type van de zojuist aangemaakte `FilmService`. Maak ook ene constructor aan in de `ApiController` die de instantievariabele set. Annoteer de construct met `@Autowired`:
 
@@ -77,11 +77,11 @@ Refactor de methoden in de `ApiController` zodat deze de methoden van de `FilmSe
 
 ### Endpoint toevoegen voor het aanmaken van films
 
-Maak in de `FilmService` een nieuwe methode aan die een `Film` accepteerd als input en de lijst van `Film`s uitbreidt. 
+Maak in de `FilmService` een nieuwe methode aan die een `Film` accepteert als input en de lijst van `Film`s uitbreidt. 
 
-Maak in de `ApiController` een nieuwe methode aan die een film toevoegt door de mehtode van de `FilmService` aan te roepen. Deze methode moet een Film als input vragen. Annoteer de `Film` uit de input met `@RequestBody`.
+Maak in de `ApiController` een nieuwe methode aan die een film toevoegt door de methode van de `FilmService` aan te roepen. Deze methode moet een Film als input vragen. Annoteer de `Film` uit de input met `@RequestBody`.
 
-Het returnType van de methode is een `ResponseEntity`. Op het moment dat alles goed is gegaan met het toevoegen van de `Film`, geven de een statuscode `201(CREATED)` terug met in de body een hint over waar de resource is aangemaakt, in ons geval het `Id` van de `Film`(het is dus handig als de methode in de service dit als antwoordt geeft).
+Het returnType van de methode is een `ResponseEntity`. Op het moment dat alles goed is gegaan met het toevoegen van de `Film`, geven we een statuscode `201(CREATED)` terug met in de body een hint over waar de resource is aangemaakt, in ons geval het `Id` van de `Film` (het is dus handig als de methode in de service dit als antwoord geeft).
 
 Om een `201` als antwoord te geven kunnen we de volgende methoden gebruiken:
 
