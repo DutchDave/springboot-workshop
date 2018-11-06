@@ -30,7 +30,7 @@ Maak in de `ApiController` een nieuwe methode aan die een film verwijdert door d
 
 Het returnType van de methode is een `ResponseEntity`. Op het moment dat alles goed is gegaan met het verwijderen van de `Film`, geven we een statuscode `202(ACCEPTED)` terug met in de body een melding dat de film succesvol is verwijderd.
 
-Om een `202` als antwoord te geven kunnen we de volgende methoden gebruiken:
+Om een `202` als antwoord te geven kunnen we de volgende methode gebruiken:
 
 ```java
 ResponseEntity.status(HttpStatus.ACCEPTED).body("DELETE Success!");

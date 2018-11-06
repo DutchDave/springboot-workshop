@@ -1,6 +1,6 @@
 # MVE-1: Enkele film ophalen
 
-In deze story gaan we een spring-boot applicatie aanmaken en een enkel endpoint maken om een film te serveren aan de client.
+In deze story gaan we een Spring Boot applicatie aanmaken met een enkel endpoint om een film te serveren aan de client.
 
 ## Acceptatie criteria
 
@@ -71,17 +71,18 @@ Antwoord:
 ---
 
 ## Stappenplan
-Om aan de acceptiatie criteria te kunnen voldoen gaan wij:
-* Een nieuwe spring boot applicatie maken
-* Een model klasse(`POJO` --> Plain Old Java Object) maken voor een `Film`
+Om aan de acceptatie criteria te kunnen voldoen gaan wij:
+* Een nieuwe Spring Boot applicatie maken
+* Een model klasse (`POJO` --> Plain Old Java Object) maken voor een `Film`
 * Een `RestController` maken om het endpoint te definieren
 * Een integratie-test schrijven 
 * Handmatig testen
 
-### Nieuwe spring boot applicatie maken
-Voor een nieuwe spring-boot applicatie gaan we gebruik maken van de [SPRING INITIALIZR](https://start.spring.io/).
+### Nieuwe Spring Boot applicatie maken
 
-Hierbij vullen wij de volgende gegevens in(dit zijn enkel voorbeelden, je mag ook zelf iets bedenken):
+Voor een nieuwe Spring Boot applicatie gaan we gebruik maken van de [SPRING INITIALIZR](https://start.spring.io/).
+
+Hierbij vullen wij de volgende gegevens in (dit zijn enkel voorbeelden, je mag ook zelf iets bedenken):
 * Group:  `nl.rechtspraak.springboot`
 * Artifact: `film-api`
 
@@ -90,15 +91,15 @@ Bij dependencies hebben wij enkel `web` nodig
 Het formulier ziet er nu zo uit:
 ![SPRING INITIALIZR](initializr.png)
 
-Klik nu op generate. Er wordt nu een zip gedownload met het startpunt voor onze spring-boot applicatie.
+Klik nu op generate. Er wordt nu een zip gedownload met het startpunt voor onze Spring Boot applicatie.
 
 Pak de zip uit op een gewenste locatie.
 
-Start Intellij op.
+Start IntelliJ op.
 
-Wanneer er nog geen intellij projecten zijn kan gekozen worden voor import project, als er wel al een project is kan via `File` --> `New` --> `Project from Existing Sources` gekozen worden.
+Wanneer er nog geen IntelliJ projecten zijn kan gekozen worden voor import project, als er wel al een project is kan via `File` --> `New` --> `Project from Existing Sources` gekozen worden.
 
-Kies de directory waar de uitgezipte spring-boot applicatie staat. Klik op Ok.
+Kies de directory waar de uitgezipte Spring Boot applicatie staat. Klik op Ok.
 
 ![Select folder](selectFolder.png)
 
@@ -126,7 +127,7 @@ Let op: Als er geen vulling onder external libraries ontstaat kan het zijn dat d
 
 ### Film POJO maken
 
-We gaan eerst een POJO aanmaken die een Film object representeerd. Deze klasse gaat ervoor zorgen dat we een in de code gestructureerde informatie kunnen doorgeven binnen de applicatie en tevens ervoor zorgen dat Spring(eigenlijk Jackson, een van de dependencies van spring) deze netjes voor ons serialiseerd naar JSON.
+We gaan eerst een POJO aanmaken die een Film object representeert. Deze klasse gaat ervoor zorgen dat we in de code gestructureerde informatie kunnen doorgeven binnen de applicatie en tevens ervoor zorgen dat Spring (eigenlijk Jackson, een van de dependencies van Spring) deze netjes voor ons serialiseert naar JSON.
 
 Maak een nieuwe klasse aan in package `[GROUP].[NAME].model` in ons geval: `nl.rechtspraak.springboot.filmapi.model` genaamd Film.
 
@@ -150,7 +151,7 @@ public class Film {
 }
 ```
 
-Genereer getters en setters voor alle instantievariabelen(`rechter muisknop` --> `Genrate...` --> `Getters and Setters`, selecteer alle velden behalve acteurs en klik op ok).
+Genereer getters en setters voor alle instantievariabelen (`rechter muisknop` --> `Generate...` --> `Getters and Setters`, selecteer alle velden behalve acteurs en klik op ok).
 
 Voor de acteurs gaan we enkel een getter genereren en zelf een `setActeurs` methode schrijven voor het gemak. De methode setActeurs ziet er als volgt uit:
 
@@ -161,18 +162,19 @@ public void setActeurs(String... acteurs) {
 }
 ```
 
-Deze methode vraagt een varargs argument voor acteurs op wat verderop(omdat wij de testdata aanleveren voor de eerste user story) van pas komt. Het komt erop neer dat we aan deze methode zoveel `String`s mee kunnen geven als wij willen.
+Deze methode vraagt een varargs argument voor acteurs op wat verderop (omdat wij de testdata aanleveren voor de eerste user story) van pas komt. Het komt erop neer dat we aan deze methode zoveel `String`s mee kunnen geven als wij willen.
 
-Het is voor productieCode geen goed idee om ook setters te maken voor bv. id's of `Collecions`. 
+Het is voor productiecode geen goed idee om ook setters te maken voor bv. id's of `Collecions`. 
 
-Id's wil je niet zelf kunnen setten, deze worden doorgaans door een opslag gegenereerd worden(bv. o.b.v. een sequence). Ook zouden alleen getters voor funcionele id's gemaakt moeten worden, een afnemer heeft vaak niks aan een techinsche id.
+Id's wil je niet zelf kunnen setten, deze worden doorgaans door een opslag gegenereerd worden (bv. o.b.v. een sequence). Ook zouden alleen getters voor funcionele id's gemaakt moeten worden, een afnemer heeft vaak niks aan een technische id.
 
-Voor een collection zou je bij de getter een immutable variant van de collection kunnen teruggeven( door bv. `Collections.unmodifiableSet(this.acteurs)`) en in plaats van een setter een addActeur o.i.d.
+Voor een collection zou je bij de getter een immutable variant van de collection kunnen teruggeven (door bv. `Collections.unmodifiableSet(this.acteurs)`) en in plaats van een setter een addActeur o.i.d.
 
-In plaats van setter mag je er ook voor kiezen om alle velden via de constructor te setten(kan Intellij ook voor je genereren op ongeveer dezelfde mannier als gettters en setters).
+In plaats van setter mag je er ook voor kiezen om alle velden via de constructor te setten (kan IntelliJ ook voor je genereren op ongeveer dezelfde manier als gettters en setters).
 
 ### Restcontroller aanmaken
-Om java methodes aan de buitenwereld bloot te stellen kan met spring een restController worden aangemaakt. Deze klasse kan aangeven dat bepaalde code moet worden aangeroepen wanneer er een HTTP verzoek binnen komt op een bepaald `path`, met een bepaalde `methode`.
+
+Om java methodes aan de buitenwereld bloot te stellen kan met Spring een RestController worden aangemaakt. Deze klasse kan aangeven dat bepaalde code moet worden aangeroepen wanneer er een HTTP verzoek binnen komt op een bepaald `path`, met een bepaalde `methode`.
 
 Hiervoor hebben wij eerst een Controller klasse nodig die een methode heeft die één film teruggeeft o.b.v. een id.
 
@@ -189,12 +191,13 @@ public class ApiController {
     ...
 ```
 
-De `@RestController` zorgt ervoor dat deze klasse door spring als controller wordt behandeld, dit houdt in dat het een bean is geworden en dat wij eventueel andere bean kunnen gaan injecteren(komen we later op terug).
+De `@RestController` zorgt ervoor dat deze klasse door Spring als controller wordt behandeld, dit houdt in dat het een bean is geworden en dat wij eventueel andere beans kunnen gaan injecteren (komen we later op terug).
 
 De `@RequestMapping("films")` zorgt ervoor dat als er een HTTP-verzoek op [hostnaam:port/films] methoden uit deze klasse worden aangeroepen.
 
 #### Initiele data aanmaken
-Deze klasse moet een(paar) films bevatten om deze terug te kunnen geven o.b.v. hun id.
+
+Deze klasse moet een (paar) films bevatten om deze terug te kunnen geven o.b.v. hun id.
 
 Hierbij wat code om een paar films aan te maken:
 
@@ -235,11 +238,11 @@ private Set<Film> maakFilms() {
 ```
 
 #### Film op basis van ID ophalen
-Nu wij een `Set` van films hebben kunnen we op basis van een id de juiste `Film` terug geven. Dit kan op de java 6/7 mannier door middel van een 'enhanced-for-loop':
+Nu wij een `Set` van films hebben kunnen we op basis van een id de juiste `Film` terug geven. Dit kan op de java 6/7 manier door middel van een 'enhanced-for-loop':
 
 ```java
-for(final Film film: films) {
-    if(film.getId().equals(id)) {
+for (final Film film: films) {
+    if (film.getId().equals(id)) {
         return film;
     }
     // Een fout gooien, want opgevraagde film bestaat niet
@@ -250,7 +253,7 @@ of op de java 8 d.m.v. de stream-api:
 
 ```java
 final Optional<Film> zoekresultaat = films.stream().filter(film -> film.getId().equals(id)).findFirst();
-if(zoekresultaat.isPresent()) {
+if (zoekresultaat.isPresent()) {
     return zoekresultaat.get();
 }
 // Een fout gooien, want opgevraagde film bestaat niet
@@ -260,7 +263,7 @@ Maak een public methode die een `Film` als return type heeft en een `String` als
 
 Annoteer de methode met `@GetMapping("{id}")`.
 
-Annoteer `String`(het input argument, de annotatie kan voor de `(String id)` --> `(@Annotatie(bla = bla) String id)`) met `@PathVariable("id")`. Dit zorgt ervoor dat het als er in de GET-mapping iets tussen accolades staat(in ons geval `id`), deze als input argument wordt gebruikt voor de methode.
+Annoteer `String` (het input argument, de annotatie kan voor de `(String id)` --> `(@Annotatie(bla = bla) String id)`) met `@PathVariable("id")`. Dit zorgt ervoor dat het als er in de GET-mapping iets tussen accolades staat (in ons geval `id`), deze als input argument wordt gebruikt voor de methode.
 
 De method signature ziet er nu als volgt uit:
 ```java
@@ -276,6 +279,6 @@ Nu het moment van de waarheid: het opstarten van de applicatie!!!!!
 
 ![Start application](run.png)
 
-Controleer of de spring-boot applicatie de juist film terug geeft door de applicatie aan te roepen m.b.v. postman.
+Controleer of de Spring Boot applicatie de juiste film terug geeft door de applicatie aan te roepen m.b.v. Postman.
 
 ![Postman request](postman.png)
