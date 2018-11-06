@@ -17,7 +17,6 @@ public class Film {
     private String titel;
     private int releaseJaar;
 
-    //@ElementCollection(targetClass=String.class)
     @Convert(converter = StringSetConverter.class)
     private Set<String> acteurs = new HashSet<>();
 
