@@ -75,8 +75,6 @@ Om aan de acceptatie criteria te kunnen voldoen gaan wij:
 * Een nieuwe Spring Boot applicatie maken
 * Een model klasse (`POJO` --> Plain Old Java Object) maken voor een `Film`
 * Een `RestController` maken om het endpoint te definieren
-* Een integratie-test schrijven 
-* Handmatig testen
 
 ### Nieuwe Spring Boot applicatie maken
 
