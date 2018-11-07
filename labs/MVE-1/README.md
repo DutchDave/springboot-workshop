@@ -24,7 +24,7 @@ Antwoord:
     ],
     "duur":"PT1H46M",
     "regisseur":"Bryan Singer",
-    "id":"123"
+    "id": 123
 }
 ```
 ---
@@ -44,7 +44,7 @@ Antwoord:
     ],
     "duur":"PT1H53M",
     "regisseur":"Richard Kelly",
-    "id":"456"
+    "id": 456
 }
 ```
 ---
@@ -65,7 +65,7 @@ Antwoord:
     ],
     "duur":"PT2H45M",
     "regisseur":"Sergio Leone",
-    "id":"789"
+    "id": 789
 }
 ```
 ---
@@ -145,7 +145,7 @@ public class Film {
     private int releaseJaar;
     private Set<String> acteurs;
     private Duration duur;
-    private String id;
+    private int id;
 }
 ```
 
@@ -209,7 +209,7 @@ private Set<Film> maakFilms() {
     film1.setDuur(Duration.ofMinutes(106));
     film1.setRegisseur("Bryan Singer");
     film1.setActeurs("Kevin Spacey", "Gabriel Byrne", "Chazz Palminteri");
-    film1.setId("123");
+    film1.setId(123);
 
     final Film film2 = new Film();
     film2.setTitel("Donnie Darko");
@@ -217,7 +217,7 @@ private Set<Film> maakFilms() {
     film2.setDuur(Duration.ofMinutes(113));
     film2.setRegisseur("Richard Kelly");
     film2.setActeurs("Jake Gyllenhaal", "Jena Malone", "Mary McDonnell");
-    film2.setId("456");
+    film2.setId(456);
 
     final Film film3 = new Film();
     film3.setTitel("Once Upon a Time in the West");
@@ -225,7 +225,7 @@ private Set<Film> maakFilms() {
     film3.setDuur(Duration.ofMinutes(165));
     film3.setRegisseur("Sergio Leone");
     film3.setActeurs("Henry Fonda", "Charles Bronson", "Claudia Cardinale");
-    film3.setId("789");
+    film3.setId(789);
 
     films.add(film1);
     films.add(film2);
@@ -240,7 +240,7 @@ Nu wij een `Set` van films hebben kunnen we op basis van een id de juiste `Film`
 
 ```java
 for (final Film film: films) {
-    if (film.getId().equals(id)) {
+    if (film.getId() == id) {
         return film;
     }
     // Een fout gooien, want opgevraagde film bestaat niet
@@ -257,16 +257,16 @@ if (zoekresultaat.isPresent()) {
 // Een fout gooien, want opgevraagde film bestaat niet
 ```
 
-Maak een public methode die een `Film` als return type heeft en een `String` als input krijgt. 
+Maak een public methode die een `Film` als return type heeft en een `int` als input krijgt. 
 
 Annoteer de methode met `@GetMapping("{id}")`.
 
-Annoteer `String` (het input argument, de annotatie kan voor de `(String id)` --> `(@Annotatie(bla = bla) String id)`) met `@PathVariable("id")`. Dit zorgt ervoor dat het als er in de GET-mapping iets tussen accolades staat (in ons geval `id`), deze als input argument wordt gebruikt voor de methode.
+Annoteer `int` (het input argument, de annotatie kan voor de `(int id)` --> `(@Annotatie(bla = bla) int id)`) met `@PathVariable("id")`. Dit zorgt ervoor dat het als er in de GET-mapping iets tussen accolades staat (in ons geval `id`), deze als input argument wordt gebruikt voor de methode.
 
 De method signature ziet er nu als volgt uit:
 ```java
 @GetMapping("{id}")
-public Film getFilm(@PathVariable("id") String id) {
+public Film getFilm(@PathVariable("id") int id) {
     ...
 }
 ```

@@ -40,7 +40,7 @@ Annoteer deze methode met `@DeleteMapping`.
 
 ```java
 @DeleteMapping("{id}")
-public ResponseEntity deleteFilm(@PathVariable("id") String id) {
+public ResponseEntity deleteFilm(@PathVariable("id") int id) {
     ...
 }
 ```

@@ -23,7 +23,7 @@ Body:
     ],
     "duur":"PT1H44M",
     "regisseur":"Bryan Writer",
-    "id": "012" // Id geven nu nog even mee(natuurlijk niet mooi, gaan we in de volgende story rechttrekken)
+    "id": 12 // Id geven nu nog even mee(natuurlijk niet mooi, gaan we in de volgende story rechttrekken)
 }
 ```
 
@@ -33,7 +33,7 @@ Antwoord:
 
 Body:
 
-012
+12
 
 ---
 

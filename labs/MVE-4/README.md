@@ -51,7 +51,8 @@ public class Film {
     private String regisseur;
 
     @Id
-    private String id;
+    @GeneratedValue
+    private int id;
     
     ...
 }
@@ -94,7 +95,7 @@ public Collection<FilmlijstItem> getFilms() {
     return filmStream.map(FilmlijstItem::new).collect(Collectors.toSet());
 }
 
-public Optional<Film> getFilm(String id) { return repository.findById(id); }
+public Optional<Film> getFilm(int id) { return repository.findById(id); }
 ```
 
 ### Toevoegen application.properties

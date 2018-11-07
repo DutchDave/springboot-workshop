@@ -17,17 +17,17 @@ Antwoord:
     {
         "titel":"The Ususal Suspects",
         "releaseJaar":1995,    
-        "id":"123"
+        "id": 123
     },
     {
         "titel":"Donnie Darko",
         "releaseJaar":2001,
-        "id":"456"
+        "id": 456
     },
     {
         "titel":"Once Upon a Time in the West",
         "releaseJaar":1968,    
-        "id":"789"
+        "id": 789
     }
 ]
 ```
@@ -52,7 +52,7 @@ public FilmLijstItem(Film film) {
 Zorg ervoor dat deze klasse 3 getters krijgt, namelijk:
 * `public String getTitel()`
 * `public int getReleaseJaar()`
-* `public String getId()`
+* `public int getId()`
 
 Zorg ervoor dat de getters de waarden van de `Film`, waarmee deze geconstruct wordt, teruggeeft.
 
