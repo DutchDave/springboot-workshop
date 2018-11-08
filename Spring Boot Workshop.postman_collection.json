@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "6d20479d-9002-4a98-a228-4760cca8bec7",
+		"name": "Spring Boot Workshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Film",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titel\":\"The Ususal Suspects\",\n    \"releaseJaar\":1995,\n    \"acteurs\":[\n        \"Chazz Palminteri\",\n        \"Kevin Spacey\",\n        \"Gabriel Byrne\"\n    ],\n    \"duur\":\"PT1H46M\",\n    \"regisseur\":\"Bryan Singer\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/films/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"films",
+						"999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Film",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/films/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"films",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Film",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titel\":\"The Ususal Suspects\",\n    \"releaseJaar\":1995,\n    \"acteurs\":[\n        \"Chazz Palminteri\",\n        \"Kevin Spacey\",\n        \"Gabriel Byrne\"\n    ],\n    \"duur\":\"PT1H46M\",\n    \"regisseur\":\"Bryan Zanger\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/films/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"films",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Film",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/films/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"films",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
