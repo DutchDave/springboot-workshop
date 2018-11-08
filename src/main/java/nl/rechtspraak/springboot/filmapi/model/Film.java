@@ -24,13 +24,14 @@ public class Film {
     private String regisseur;
 
     @Id
-    private String id;
+    @GeneratedValue
+    private int id;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

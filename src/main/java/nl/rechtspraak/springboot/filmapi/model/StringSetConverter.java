@@ -17,7 +17,7 @@ public class StringSetConverter implements AttributeConverter<Set<String>, Strin
 
     @Override
     public Set<String> convertToEntityAttribute(String joined) {
-        return new HashSet<String>(Arrays.asList(joined.split(",")));
+        return new HashSet<>(Arrays.asList(joined.split(",")));
     }
 
 }

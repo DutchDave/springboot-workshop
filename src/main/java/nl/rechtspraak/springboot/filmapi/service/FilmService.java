@@ -27,11 +27,11 @@ public class FilmService {
         return filmStream.map(FilmlijstItem::new).collect(Collectors.toSet());
     }
 
-    public Optional<Film> getFilm(String id) {
+    public Optional<Film> getFilm(int id) {
         return repository.findById(id);
     }
 
-    public void removeFilm(String id) {
+    public void removeFilm(int id) {
         repository.deleteById(id);
     }
 

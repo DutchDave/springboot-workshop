@@ -32,9 +32,9 @@ public class ApiController {
     }
 
     @GetMapping("{id}")
-    public Film getFilm(@PathVariable("id") String id) {
+    public Film getFilm(@PathVariable("id") int id) {
         final Optional<Film> zoekResultaat = filmService.getFilm(id);
-        if(zoekResultaat.isPresent()) {
+        if (zoekResultaat.isPresent()) {
             return zoekResultaat.get();
         } else {
             throw new FilmNietGevondenException(id);
@@ -42,9 +42,9 @@ public class ApiController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Film> setFilm(@PathVariable("id") String id, @RequestBody Film updateFilm) {
+    public ResponseEntity<Film> setFilm(@PathVariable("id") int id, @RequestBody Film updateFilm) {
         final Optional<Film> optionalFilm = filmService.getFilm(id);
-        if(optionalFilm.isPresent()) {
+        if (optionalFilm.isPresent()) {
             Film currentFilm = optionalFilm.get();
             currentFilm.setDuur(updateFilm.getDuur());
             currentFilm.setRegisseur(updateFilm.getRegisseur());
@@ -59,9 +59,9 @@ public class ApiController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteFilm(@PathVariable("id") String id){
+    public ResponseEntity<String> deleteFilm(@PathVariable("id") int id){
         final Optional<Film> zoekResultaat = filmService.getFilm(id);
-        if(zoekResultaat.isPresent()) {
+        if (zoekResultaat.isPresent()) {
             filmService.removeFilm(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("DELETE Success!");
         } else {
@@ -70,9 +70,9 @@ public class ApiController {
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<String> createFilm(@PathVariable("id") String id, @RequestBody Film newFilm){
+    public ResponseEntity<String> createFilm(@PathVariable("id") int id, @RequestBody Film newFilm){
         final Optional<Film> zoekResultaat = filmService.getFilm(id);
-        if(zoekResultaat.isPresent()) {
+        if (zoekResultaat.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource already excists!");
         } else {
             newFilm.setId(id);

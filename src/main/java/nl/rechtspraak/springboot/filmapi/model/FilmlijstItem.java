@@ -3,7 +3,7 @@ package nl.rechtspraak.springboot.filmapi.model;
 public class FilmlijstItem {
     private String titel;
     private int jaar;
-    private String id;
+    private int id;
 
     public FilmlijstItem(Film film) {
         this.titel = film.getTitel();
@@ -19,7 +19,7 @@ public class FilmlijstItem {
         return jaar;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 }
