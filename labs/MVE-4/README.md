@@ -83,7 +83,7 @@ private FilmRepository repository;
 
 Vervang de methode voor het gebruik van de `FilmRepository`
 Gebruik:
-* `findById(String id)`
+* `findById(int id)`
 * `findAll()`
 * `save(Film film)`
 
@@ -118,9 +118,9 @@ spring.jpa.properties.hibernate.show_sql=true
 ```
 
 ### StringSetConverter aanmaken
-Hibernate detecteerd een lijst van acteurs. Daar zou deze een sub-tabel van maken. 
+Hibernate detecteert een lijst van acteurs. Daar zou deze een sub-tabel van maken. 
 Om all acteurs als 1 string in dezelfde kolom op te slaan maken we gebruik van een 
-Atribute converter. Maak deze klasse aan in de model.
+Attribute converter. Maak deze klasse aan in de model.
 
 ```java
 package nl.rechtspraak.springboot.filmapi.model;
@@ -149,28 +149,28 @@ public class StringSetConverter implements AttributeConverter<Set<String>, Strin
 ```
 
 ### Start de applicatie en bekijk de H2 database console
-Start de applicatie door op Run (Shift-F10) te kliken. 
+Start de applicatie door op Run (Shift-F10) te klikken. 
 
 Navigeer naar localhost:8080/h2-console
 
-Vervang de JDBC url door: jdbc:h2:~:film_store/db
+Vervang de JDBC url door: jdbc:h2:~/film_store/db
 
 ![login](h2-console-login.PNG)
 
 ### Database vullen 
-Tijdens het starten word de tabellen in de H2 database automatisch aangemaakt door hibernate. 
+Tijdens het starten worden de tabellen in de H2 database automatisch aangemaakt door hibernate. 
 
 Gebruik de onderstaande sql code om de database te vullen in de h2-console:
 ```sql
 insert into film
-values('123', 'Chazz Palminteri,Kevin Spacey,Gabriel Byrne', 6360000000000,'Bryan Singer', 1995,'The Ususal Suspects');
+values(123, 'Chazz Palminteri,Kevin Spacey,Gabriel Byrne', 6360000000000,'Bryan Singer', 1995,'The Ususal Suspects');
 
 insert into film
-values('456', 'Jena Malone,Mary McDonnell,Jake Gyllenhaal', 6780000000000, 'Richard Kelly', 2001, 'Donnie Darko');
+values(456, 'Jena Malone,Mary McDonnell,Jake Gyllenhaal', 6780000000000, 'Richard Kelly', 2001, 'Donnie Darko');
 ```
 
 Controleer de aanwezigheid:
 ![select](h2-console-film.PNG)
 
 ### Test de applicatie
-Controleer de functionaliteit van de applicatie. Blijven de films bewaard als de applicatie opnieuw word opgestart?
+Controleer de functionaliteit van de applicatie. Blijven de films bewaard als de applicatie opnieuw wordt opgestart?
