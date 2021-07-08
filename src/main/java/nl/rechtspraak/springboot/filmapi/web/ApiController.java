@@ -14,6 +14,7 @@ import java.util.Optional;
  * Apicontroller voor de Film-api.
  */
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("films")
 public class ApiController {
 
